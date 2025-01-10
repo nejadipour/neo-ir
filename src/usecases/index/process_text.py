@@ -11,7 +11,7 @@ class CustomNormalizer(Normalizer):
             persian_style=False  # not to change numbers like 10.45
         )
         self._remove_unwanted_chars = remove_unwanted_chars
-        self.unwanted_chars_pattern = re.compile(r"""[ـ.؛،؟"*ء+':!<>\-«»؛(){}|\[\]#,&?@=]""")
+        self.unwanted_chars_pattern = re.compile(r"""[ـ.؛،؟"*ء+':!<>\-«»(){}|\[\]#,&?@=/\\]""")
 
     def remove_unwanted_chars(self, text: str) -> str:
         return self.unwanted_chars_pattern.sub("", text)

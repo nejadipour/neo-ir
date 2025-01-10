@@ -1,7 +1,7 @@
 import pandas as pd
 
+from src.utils import logger
 from src.utils.config import config
-from datetime import datetime
 
 
 class DataLoader:
@@ -19,7 +19,7 @@ class DataLoader:
 
             df = self._make_text_column(df)
 
-            print(f"[{datetime.now()}] : Loaded {len(df)} documents successfully!")
+            logger.log(f'Loaded {len(df)} documents successfully.')
             return df
 
         except FileNotFoundError:
