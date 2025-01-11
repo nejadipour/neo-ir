@@ -2,7 +2,8 @@ import pandas as pd
 
 from src.infra.repositories import TermRepository, DocumentRepository, ExistsInRepository
 from src.infra.repositories.utils import detach_delete_all
-from src.usecases.index import DataLoader, TextProcessor
+from src.usecases.index import DataLoader
+from src.usecases.utils import TextProcessor
 
 from src.utils import logger
 

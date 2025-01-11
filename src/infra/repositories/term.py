@@ -3,6 +3,14 @@ from neomodel import db
 
 
 class TermRepository:
+    """
+    Repository for Term Entity
+    """
+
+    """
+    Create
+    """
+
     @staticmethod
     def bulk_create(terms_df: pd.DataFrame) -> dict:
         query = """
@@ -15,3 +23,18 @@ class TermRepository:
         results, _ = db.cypher_query(query, cypher_query_params)
 
         return {term: term_id_in_neo for term, term_id_in_neo in results}
+
+    """
+    Read
+    """
+
+    @staticmethod
+    def get_terms_document_frequencies(query_terms: list[str]) -> pd.DataFrame:
+        query = """
+        UNWIND $query_terms AS term_value
+        MATCH (t:Term {value: term_value})
+        RETURN t.value AS term, t.document_frequency AS document_frequency
+        """
+
+        result, _ = db.cypher_query(query, {'query_terms': query_terms})
+        return pd.DataFrame(result, columns=['term', 'document_frequency'])
