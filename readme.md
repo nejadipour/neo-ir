@@ -4,12 +4,10 @@ Information Retrieval System with Power of Neo4j
 ---
 
 ## Overview
-
 This project implements a search engine using Neo4j as the backend for managing terms and documents. It applies TF-IDF ranking and cosine similarity to retrieve and rank documents based on a user query. The design ensures efficiency, scalability, and modularity.
 
 
 ## Features
-
 1. Document Indexing:
    - Builds a term-document relationship using Neo4j.
    - Stores metadata, including term frequency (TF) and document frequency (DF).
@@ -39,7 +37,7 @@ The Neo4j graph database is designed with the following entities:
   + positions: List of positions where the term appears in the document.
   + is_champion: Indicates if the document is a champion for the term.
 
-![img_2.png](img_2.png)
+![neo4j_beowser.png](images/neo4j_beowser.png)
 
 ### Project Structure
 + Infra Layer
@@ -73,19 +71,19 @@ The Neo4j graph database is designed with the following entities:
 ## Indexing Steps
 1. Data Loading:
     - Load raw documents from a JSON file.
-2. Text Preprocessing:
+2. Removal of Top K Frequent Terms:
+    - Identify and remove the top 50 most frequent terms (e.g., stop words) from the index to reduce noise. Available in `removed_top_terms.csv`
+3. Text Preprocessing:
     - Tokenize and normalize text.
     - Remove unwanted characters and apply lemmatization.
-3. Term Extraction:
-    - Identify unique terms in each document and calculate their frequencies.
-4. Removal of Top K Frequent Terms:
-    - Identify and remove the top 50 most frequent terms (e.g., stop words) from the index to reduce noise. Available in `removed_top_terms.csv`
-5. Calculate term and document frequency
-6. Champion Lists:
+    - Calculate term and document frequency
+4. Champion Lists:
     - Identify top K documents for each term based on TF scores and mark them as champions.
-7. Neo4j Indexing
+5. Neo4j Indexing
     - Create Term and Document nodes.
     - Establish EXISTS_IN relationships.
+
+![indexing.png](images/indexing.png)
 
 ## Streamlit panel
 Simple panel for searching queries
@@ -94,7 +92,7 @@ Simple panel for searching queries
 streamlit run panel.py
 ```
 
-![img.png](img.png)
+![panel.png](images/panel.png)
 
 ## Examples
 query: 'امروز'
