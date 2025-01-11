@@ -1,3 +1,4 @@
+from src.infra.repositories import TermRepository
 from src.usecases.utils import TextProcessor
 from collections import Counter
 import pandas as pd
@@ -20,6 +21,7 @@ class QueryProcessor:
     def process_query(self, query: str) -> pd.DataFrame:
         text_processor = TextProcessor()
         terms = self.extract_terms(query=query, text_processor=text_processor)
+        terms = TermRepository.get_terms_by_query_terms(query_terms=terms)
 
         tf_df = self.get_term_frequencies(terms=terms)
 

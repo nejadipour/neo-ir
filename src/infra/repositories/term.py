@@ -29,6 +29,18 @@ class TermRepository:
     """
 
     @staticmethod
+    def get_terms_by_query_terms(query_terms: list[str]) -> list[str]:
+        query = """
+        UNWIND $query_terms AS term_value
+        MATCH (t: Term {value: term_value})
+        RETURN t.value
+        """
+
+        result, _ = db.cypher_query(query, {'query_terms': query_terms})
+        return [term[0] for term in result]
+
+
+    @staticmethod
     def get_terms_document_frequencies(query_terms: list[str]) -> pd.DataFrame:
         query = """
         UNWIND $query_terms AS term_value

@@ -173,3 +173,4 @@ cython_debug/
 .idea/
 data/
 temp.py
+*.zip
